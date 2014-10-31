@@ -6,7 +6,24 @@
  */
 
 module.exports = {
+
+	safeFilename: function(name) {
+		name = name.replace(/ /g, '-');
+		name = name.replace(/[^A-Za-z0-9-_\.]/g, '');
+		name = name.replace(/\.+/g, '.');
+		name = name.replace(/-+/g, '-');
+		name = name.replace(/_+/g, '_');
+		return name;
+	},
 	
+	fileMinusExt: function(fileName) {
+		return fileName.split('.').slice(0, -1).join('.');
+	},
+ 
+	fileExtension: function(fileName) {
+		return fileName.split('.').slice(-1);
+	},
+
 	process: function(req, res){
 
 		// e.g.
@@ -17,12 +34,13 @@ module.exports = {
 		// Node defaults to 2 minutes.
 		res.setTimeout(0);
 		sails.log(req.file('xFile'));
+
 		req.file('xFile').upload({
 			
-// You can apply a file upload limit (in bytes)
+			// You can apply a file upload limit (in bytes)
 			maxBytes: 1000000
 
-		}, function whenDone(err, uploadedFiles){
+		}, function whenDone(err, uploadedFiles, next){
 			if(err) {
 				return res.serverError(err);
 			} else {
@@ -31,17 +49,19 @@ module.exports = {
 					XLSX = require('xlsx');
 				}
 
-				sails.log(_.str.fileExtension(uploadedFiles.filename));
-
-				/*var workbook = XLSX.readFile(req.xfile);
-				sails.log(workbook);*/
+				sails.log.info(uploadedFiles[0]);
+				var workbook = XLSX.readFile( uploadedFiles[0].fd );
+				//sails.log.info(workbook);
 
 				return res.json({
 					files: uploadedFiles,
+					excel: workbook,
 					textParams: req.params.all()
 				});
 			}
-		);
+		});
+
+
 
 		// Iterate through each uploaded file
 		/*var resultSet= [];
