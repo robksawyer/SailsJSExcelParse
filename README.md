@@ -1,6 +1,14 @@
-# ExcelParseTest
+# SailsJS: Excel Parse 
 
 This is a [Sails](http://sailsjs.org) application that shows how to parse an Excel file. If you are looking for guidance on basic file uploading, check out <https://github.com/sails101/file-uploads>. The project uses the builtin [Skipper](https://www.npmjs.org/package/skipper) file upload component and a few modules that are listed below. 
+
+## Goals
+
+Learn how to use an Excel parsing library with SailsJS. Measurements of success would include:
+
+- Uploading a file and then dynamically adding a new column to the file with some content in it. 
+- It'd also be nice to figure out how to remove columns and rows from the Excel document.
+- Ability to download the file after it has been manipulated.
 
 
 ## Dependencies
