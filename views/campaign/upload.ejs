@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="header">
+		<h2>Upload your plain media plan.</h2>
+	</div>
+	<br/>
+	<div class="row">
+		<form id="uploadForm" enctype="multipart/form-data" action="/campaign/process" method="post" role="form">
+			<div class="form-group">
+				<label for="plainMediaPlan" class="sr-only">Upload Plain Media Plan</label>
+				<input type="file" id="plainMediaPlan" name="xFile" class="form-control" />
+				<p class="help-block">You need to ensure that your Excel document has an Ad Name column. <a href="#">See instructions</a> for more.</p>
+			</div>
+			<button type="submit" class="btn btn-default">Enhance It</button>
+		</form>
+	</div>
+</div>
