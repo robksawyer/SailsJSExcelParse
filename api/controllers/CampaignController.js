@@ -8,7 +8,25 @@
 module.exports = {
 	
 	process: function(req, res){
-		sails.log(req.files);
+
+		// e.g.
+		// 0 => infinite
+		// 240000 => 4 minutes (240,000 miliseconds)
+		// etc.
+		//
+		// Node defaults to 2 minutes.
+		res.setTimeout(0);
+		sails.log(req.file('xFile'));
+		req.file('xFile').upload({
+			// You can apply a file upload limit (in bytes)
+			maxBytes: 1000000
+		}, function whenDone(err, uploadedFiles){
+			if(err) return res.serverError(err);
+			else return res.json({
+				files: uploadedFiles,
+				textParams: req.params.all()
+			});
+		});
 
 		// Parse form data from server
 		/*var parsedFormData = JSON.parse(req.param('xfile'));
@@ -41,7 +59,7 @@ module.exports = {
 		}
 		var workbook = XLSX.readFile(req.xfile);
 		sails.log(workbook);*/
-		return res.redirect('/campaign/upload');
+		//return res.redirect('/campaign/upload');
 	},
 
 	upload: function(req, res){
