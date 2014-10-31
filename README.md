@@ -2,6 +2,12 @@
 
 This is a [Sails](http://sailsjs.org) application that shows how to parse an Excel file. If you are looking for guidance on basic file uploading, check out <https://github.com/sails101/file-uploads>. The project uses the builtin [Skipper](https://www.npmjs.org/package/skipper) file upload component and a few modules that are listed below. 
 
+It's also worth noting that the project takes advantage of some [Lo-Dash](http://lodash.com/) and [Underscore.string](https://github.com/epeli/underscore.string) functions. The Lo-Dash library automatically comes with Sails, so why not take advantage of it? It's a bit tricky to figure out which is which because they both use the following syntax. Just know that `._str` is underscore.
+
+```
+._someMethod //in front of the method Ex. ._str.fileExtension('myfile.xlsx')
+```
+
 ## Goals
 
 Learn how to use an Excel parsing library with SailsJS. Measurements of success would include:

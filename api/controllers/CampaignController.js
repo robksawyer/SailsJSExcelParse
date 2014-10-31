@@ -18,19 +18,30 @@ module.exports = {
 		res.setTimeout(0);
 		sails.log(req.file('xFile'));
 		req.file('xFile').upload({
-			// You can apply a file upload limit (in bytes)
+			
+// You can apply a file upload limit (in bytes)
 			maxBytes: 1000000
-		}, function whenDone(err, uploadedFiles){
-			if(err) return res.serverError(err);
-			else return res.json({
-				files: uploadedFiles,
-				textParams: req.params.all()
-			});
-		});
 
-		// Parse form data from server
-		/*var parsedFormData = JSON.parse(req.param('xfile'));
-		sails.log(parsedFormData);*/
+		}, function whenDone(err, uploadedFiles){
+			if(err) {
+				return res.serverError(err);
+			} else {
+
+				if(typeof require !== 'undefined') {
+					XLSX = require('xlsx');
+				}
+
+				sails.log(_.str.fileExtension(uploadedFiles.filename));
+
+				/*var workbook = XLSX.readFile(req.xfile);
+				sails.log(workbook);*/
+
+				return res.json({
+					files: uploadedFiles,
+					textParams: req.params.all()
+				});
+			}
+		);
 
 		// Iterate through each uploaded file
 		/*var resultSet= [];
@@ -54,11 +65,6 @@ module.exports = {
 				res.json({ success: true }); 
 			}
 		});*/
-		/*if(typeof require !== 'undefined') {
-			XLSX = require('xlsx');
-		}
-		var workbook = XLSX.readFile(req.xfile);
-		sails.log(workbook);*/
 		//return res.redirect('/campaign/upload');
 	},
 
